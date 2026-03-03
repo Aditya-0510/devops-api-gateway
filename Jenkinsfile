@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:20-alpine'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     environment {
         IMAGE_NAME = "devops-api-gateway"
@@ -17,13 +22,13 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'cd api && npm install'
             }
         }
 
         stage('Build TypeScript') {
             steps {
-                sh 'npm run build'
+                sh 'cd api && npm run build'
             }
         }
 
@@ -45,7 +50,6 @@ pipeline {
                 docker run -d \
                 --name $CONTAINER_NAME \
                 -p $PORT:3000 \
-                -e REDIS_URL=redis://redis:6379 \
                 $IMAGE_NAME
                 '''
             }
