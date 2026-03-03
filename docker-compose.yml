@@ -1,0 +1,27 @@
+services:
+  api:
+    build: ./api
+    environment:
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - redis
+
+  api2:
+    build: ./api
+    environment:
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "3000:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
+      - api2
