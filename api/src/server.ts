@@ -86,7 +86,8 @@ app.get("/price/:coin", async (req, res) => {
     res.json({
       coin,
       price_usd: price,
-      source: "api"
+      source: "api",
+      instance: process.env.HOSTNAME
     });
 
   } catch (error) {
