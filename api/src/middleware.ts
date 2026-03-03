@@ -1,5 +1,5 @@
 import redis from "./utils/redis.js";
-import { Request, Response, NextFunction } from "express";
+import type { Request, Response, NextFunction } from "express";
 import rateLimit from "express-rate-limit";
 
 export const limiter = rateLimit({
