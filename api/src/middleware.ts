@@ -1,4 +1,4 @@
-import redis from "./src/utils/redis";
+import redis from "./utils/redis.js";
 import { Request, Response, NextFunction } from "express";
 import rateLimit from "express-rate-limit";
 
